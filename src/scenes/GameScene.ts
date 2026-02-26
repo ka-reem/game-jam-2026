@@ -6,6 +6,7 @@ import {
 import { Player, WeaponType } from '../objects/Player';
 import { BulletPool } from '../objects/BulletPool';
 import { ZombiePool } from '../objects/ZombiePool';
+import { Zombie } from '../objects/Zombie';
 import { Gate, GateOption, makeGateOption } from '../objects/Gate';
 import { ParticleManager } from '../objects/ParticleManager';
 import { GameState } from '../data/GameState';
@@ -287,7 +288,7 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
-  private onZombieDied(z: any): void {
+  private onZombieDied(z: Zombie): void {
     this.zombiesKilled++;
     const pts = 100 * this.multiplierChain;
     this.score += pts;
