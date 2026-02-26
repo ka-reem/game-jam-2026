@@ -1,0 +1,17 @@
+export const GAME_WIDTH = 390;
+export const GAME_HEIGHT = 844;
+export const PLAYER_ZONE_Y = GAME_HEIGHT * 0.85;
+export const PLAY_FIELD_TOP = 0;
+export const PLAY_FIELD_BOTTOM = GAME_HEIGHT * 0.85;
+export const UI_BAR_HEIGHT = GAME_HEIGHT * 0.05;
+export const BULLET_SPEED = 600;
+export const BASE_FIRE_RATE = 200;
+export const PLAYER_WIDTH = 40;
+export const PLAYER_HEIGHT = 40;
+export const ZOMBIE_WIDTH = 36;
+export const ZOMBIE_HEIGHT = 48;
+export const GATE_WIDTH = 80;
+export const GATE_HEIGHT = 60;
+export const GATE_GAP = 20;
+export const LANE_COUNT = 3;
+export const SCROLL_SPEED = 120;
