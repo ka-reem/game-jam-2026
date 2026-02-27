@@ -9,8 +9,8 @@ export class PreloadScene extends Phaser.Scene {
   create(): void {
     this.generateTextures();
 
-    // Title screen
-    const bg = this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x1a1a2e);
+    // Title screen — semi-transparent overlay so Three.js background shows through
+    const bg = this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x0d0d1a, 0.55);
     const title = this.add.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 60, 'ZOMBIE\nLANE SHOOTER', {
       fontSize: '42px', fontFamily: 'Arial Black, Arial', color: '#00ffee',
       stroke: '#000000', strokeThickness: 5, align: 'center'

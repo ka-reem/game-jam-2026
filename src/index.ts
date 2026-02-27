@@ -4,12 +4,17 @@ import { PreloadScene } from './scenes/PreloadScene';
 import { GameScene } from './scenes/GameScene';
 import { UIScene } from './scenes/UIScene';
 import { LevelCompleteScene } from './scenes/LevelCompleteScene';
+import { ThreeBackground } from './utils/ThreeBackground';
+
+// Boot the subtle 3D bird's-eye background before Phaser
+new ThreeBackground();
 
 const config: Phaser.Types.Core.GameConfig = {
-  type: Phaser.AUTO,
+  type: Phaser.CANVAS,       // force Canvas so we can set alpha:true easily
   width: GAME_WIDTH,
   height: GAME_HEIGHT,
-  backgroundColor: '#1a1a2e',
+  backgroundColor: 'rgba(0,0,0,0)',   // transparent — Three.js shows through
+  transparent: true,
   parent: document.body,
   physics: {
     default: 'arcade',

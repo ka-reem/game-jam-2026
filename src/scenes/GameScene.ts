@@ -94,12 +94,10 @@ export class GameScene extends Phaser.Scene {
 
   private drawBackground(): void {
     this.bgGraphics.clear();
-    // Dark gradient lanes
-    this.bgGraphics.fillStyle(0x1a1a2e, 1);
-    this.bgGraphics.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    // No background fill — Three.js provides the 3D ground layer.
 
-    // Lane dividers
-    this.bgGraphics.lineStyle(1, 0x2a2a4e, 0.6);
+    // Lane dividers (subtle overlay matching Three.js lane lines)
+    this.bgGraphics.lineStyle(1, 0x00ffee, 0.12);
     const laneW = GAME_WIDTH / 3;
     for (let i = 1; i < 3; i++) {
       this.bgGraphics.beginPath();
