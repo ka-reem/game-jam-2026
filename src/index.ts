@@ -7,7 +7,8 @@ import { LevelCompleteScene } from './scenes/LevelCompleteScene';
 import { ThreeBackground } from './utils/ThreeBackground';
 
 // Boot the subtle 3D bird's-eye background before Phaser
-new ThreeBackground();
+const threeBackground = new ThreeBackground();
+(window as unknown as { __threeBg?: ThreeBackground }).__threeBg = threeBackground;
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.CANVAS,       // force Canvas so we can set alpha:true easily
