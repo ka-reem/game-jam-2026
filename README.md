@@ -1,1 +1,1 @@
-# game-jam-2026
+# game-jam-2026 - last survival shooter
