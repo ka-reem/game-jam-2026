@@ -1,17 +1,14 @@
 import Phaser from 'phaser';
-import { ZombieType } from '../data/LevelData';
 
-export class Zombie extends Phaser.Physics.Arcade.Sprite {
-  hp: number = 3;
-  maxHp: number = 3;
-  speed: number = 60;
-  zombieType: ZombieType = 'basic_zombie';
+export class Barrel extends Phaser.Physics.Arcade.Sprite {
+  hp: number = 6;
+  maxHp: number = 6;
+  speed: number = 90;
   private hpBar: Phaser.GameObjects.Graphics;
-  private flashTimer: number = 0;
   private renderVisible: boolean = true;
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
-    super(scene, x, y, 'basic_zombie');
+    super(scene, x, y, 'barrel');
     scene.add.existing(this);
     scene.physics.add.existing(this);
     this.hpBar = scene.add.graphics();
@@ -20,18 +17,14 @@ export class Zombie extends Phaser.Physics.Arcade.Sprite {
     this.hpBar.setVisible(false);
   }
 
-  spawn(x: number, y: number, type: ZombieType, hp: number, speed: number): void {
-    this.zombieType = type;
+  spawn(x: number, y: number, hp: number, speed: number): void {
     this.hp = hp;
     this.maxHp = hp;
     this.speed = speed;
-    this.setTexture(type);
     this.setPosition(x, y);
     this.setActive(true);
     this.setVisible(this.renderVisible);
     this.hpBar.setVisible(this.renderVisible);
-    this.clearTint();
-    this.flashTimer = 0;
 
     const body = this.body as Phaser.Physics.Arcade.Body;
     if (body) {
@@ -44,13 +37,8 @@ export class Zombie extends Phaser.Physics.Arcade.Sprite {
 
   takeDamage(dmg: number): boolean {
     this.hp -= dmg;
-    this.setTint(0xffffff);
-    this.flashTimer = 100;
     this.updateHpBar();
-    if (this.hp <= 0) {
-      return true;
-    }
-    return false;
+    return this.hp <= 0;
   }
 
   deactivate(): void {
@@ -75,22 +63,19 @@ export class Zombie extends Phaser.Physics.Arcade.Sprite {
     this.hpBar.clear();
     const w = this.displayWidth;
     const bx = this.x - w / 2;
-    const by = this.y - this.displayHeight / 2 - 8;
-    this.hpBar.fillStyle(0x333333, 1);
-    this.hpBar.fillRect(bx, by, w, 4);
-    const pct = Math.max(0, this.hp / this.maxHp);
-    const color = pct > 0.5 ? 0x00ff00 : pct > 0.25 ? 0xffff00 : 0xff0000;
-    this.hpBar.fillStyle(color, 1);
-    this.hpBar.fillRect(bx, by, w * pct, 4);
+    const by = this.y - this.displayHeight / 2 - 6;
+    this.hpBar.fillStyle(0x222222, 1);
+    this.hpBar.fillRect(bx, by, w, 3);
+    const pct = Phaser.Math.Clamp(this.hp / this.maxHp, 0, 1);
+    this.hpBar.fillStyle(0xffaa00, 1);
+    this.hpBar.fillRect(bx, by, w * pct, 3);
   }
 
-  update(delta: number): void {
+  update(): void {
     if (!this.active) return;
-    if (this.flashTimer > 0) {
-      this.flashTimer -= delta;
-      if (this.flashTimer <= 0) {
-        this.clearTint();
-      }
+    if (this.y > 920) {
+      this.deactivate();
+      return;
     }
     this.updateHpBar();
   }

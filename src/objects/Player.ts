@@ -82,10 +82,10 @@ export class Player extends Phaser.GameObjects.Container {
     this.targetX = GAME_WIDTH / 2;
   }
 
-  updatePosition(pointerX: number, delta: number): void {
-    const minX = PLAYER_WIDTH / 2;
-    const maxX = GAME_WIDTH - PLAYER_WIDTH / 2;
-    const clamped = Phaser.Math.Clamp(pointerX, minX, maxX);
+  updatePosition(pointerX: number, delta: number, minX?: number, maxX?: number): void {
+    const left = minX ?? PLAYER_WIDTH / 2;
+    const right = maxX ?? GAME_WIDTH - PLAYER_WIDTH / 2;
+    const clamped = Phaser.Math.Clamp(pointerX, left, right);
     // Lerp for slight smoothing
     this.targetX = clamped;
     this.x = Phaser.Math.Linear(this.x, this.targetX, 0.25);

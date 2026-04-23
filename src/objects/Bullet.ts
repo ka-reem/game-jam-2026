@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { GAME_HEIGHT } from '../utils/Constants';
 
 export class Bullet extends Phaser.Physics.Arcade.Sprite {
   damage: number = 1;
@@ -44,6 +45,8 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
   }
 
   update(): void {
+    const depthScale = Phaser.Math.Clamp(0.55 + (this.y / GAME_HEIGHT) * 0.85, 0.45, 1.3);
+    this.setScale(this.bulletSize * depthScale);
     if (this.active && (this.y < -20 || this.y > 900 || this.x < -20 || this.x > 420)) {
       this.deactivate();
     }

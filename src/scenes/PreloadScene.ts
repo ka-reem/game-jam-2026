@@ -101,6 +101,18 @@ export class PreloadScene extends Phaser.Scene {
     g.fillCircle(4, 4, 4);
     g.generateTexture('particle', 8, 8);
 
+    // Barrel obstacle
+    g.clear();
+    g.fillStyle(0x8a4f24, 1);
+    g.fillRoundedRect(2, 0, 28, 36, 6);
+    g.fillStyle(0x3a2a1e, 1);
+    g.fillRect(2, 4, 28, 5);
+    g.fillRect(2, 16, 28, 5);
+    g.fillRect(2, 28, 28, 5);
+    g.fillStyle(0xffaa00, 0.9);
+    g.fillCircle(16, 18, 4);
+    g.generateTexture('barrel', 32, 36);
+
     g.destroy();
   }
 }

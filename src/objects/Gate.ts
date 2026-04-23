@@ -58,6 +58,42 @@ export class Gate extends Phaser.GameObjects.Container {
     scene.add.existing(this);
   }
 
+  private formatLabel(opt: GateOption): string {
+    switch (opt.type) {
+      case 'multiply':
+        return `x${opt.value}`;
+      case 'add':
+      case 'reduce':
+        return `${opt.value >= 0 ? '+' : ''}${opt.value}`;
+      default:
+        return opt.label;
+    }
+  }
+
+  private refreshLabels(): void {
+    this.leftText.setText(this.formatLabel(this.leftOption));
+    this.rightText.setText(this.formatLabel(this.rightOption));
+  }
+
+  private incrementOption(opt: GateOption): void {
+    if (opt.type === 'multiply' || opt.type === 'add' || opt.type === 'reduce') {
+      opt.value += 1;
+      opt.label = this.formatLabel(opt);
+    }
+  }
+
+  hitLeft(): void {
+    this.incrementOption(this.leftOption);
+    this.refreshLabels();
+    this.flashLeft();
+  }
+
+  hitRight(): void {
+    this.incrementOption(this.rightOption);
+    this.refreshLabels();
+    this.flashRight();
+  }
+
   update(delta: number): void {
     this.y += this.speed * (delta / 1000);
   }
